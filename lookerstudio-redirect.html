@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redirecting…</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;}
+    .card{max-width:640px}
+    code{padding:2px 6px;background:#f2f3f5;border-radius:6px}
+  </style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+  <h1>Sending you to your client’s report…</h1>
+  <p>If nothing happens, you can safely close this window.</p>
+  <p id="debug" style="display:none"></p>
+  <noscript>
+    <p>This page needs JavaScript to forward you to the Looker Studio report.</p>
+  </noscript>
+</div></div>
+<script>
+(function(){
+  function getParam(name){
+    var usp=new URLSearchParams(location.search);
+    return usp.get(name) || usp.get('Name') || usp.get('name');
+  }
+  function safeTrim(s){ return (s || '').toString().trim(); }
+  var rp = safeTrim(getParam('rp_name'));
+  if(!rp){
+    var el = document.getElementById('debug');
+    el.style.display = 'block';
+    el.innerHTML = 'Missing required query parameter <code>rp_name</code>. Example: <code>?rp_name=Test%20Josh%20Perrault%2010072025</code>';
+    return;
+  }
+  var base = 'https://lookerstudio.google.com/embed/reporting/8f4a1a64-a57d-4086-925b-43557b236988/page/i87YF';
+  var json = JSON.stringify({"ds0.rp_name": rp});
+  var target = base + '?params=' + encodeURIComponent(json);
+  location.replace(target);
+})();
+</script>
+</body>
+</html>
