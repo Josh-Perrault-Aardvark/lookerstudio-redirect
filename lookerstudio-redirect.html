@@ -26,7 +26,7 @@
 (function(){
   function getParam(name){
     var usp=new URLSearchParams(location.search);
-    return usp.get(name) || usp.get('Name') || usp.get('name');
+    return usp.get(name) || usp.get('ds0.rp_name') || usp.get('Name') || usp.get('name');
   }
   function safeTrim(s){ return (s || '').toString().trim(); }
   var rp = safeTrim(getParam('rp_name'));
